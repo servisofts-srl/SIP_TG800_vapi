@@ -30,24 +30,22 @@ Este proyecto busca integrar el gateway Yeastar TG800 con la plataforma **VAPI.A
 ---
 
 #### Configuración en el Yeastar TG800
-##### 1. Configuracion de el TG800
+##### 1. Configuración del TG800
 
-Entramos a `System` -> `LAN Settings`, para habilitar el acceso por `SSH` y configuramos la ip del despositivo.
+Entramos a `System` -> `LAN Settings` para habilitar el acceso por `SSH` y configuramos la IP del dispositivo.
 
 ![alt text](img/config_lan.png)
 
-Ahora vamos a `Gateway` -> `VoIP Trunk`
+Ahora vamos a `Gateway` -> `VoIP Trunk`.
 ![alt text](img/add_sip_trunk.png)
 
-
-Agreagamos el trunk con las siguientes configuraciones:
-(El Provider Name es importante para la configuracion)
+Agregamos el trunk con las siguientes configuraciones:  
+(El *Provider Name* es importante para la configuración).  
 ![alt text](img/add_trunk.png)
 
 Ahora nos conectamos por SSH al TG800.
 
 ```bash
-
 ssh -o HostKeyAlgorithms=+ssh-rsa \
     -o KexAlgorithms=+diffie-hellman-group1-sha1 \
     -o PubkeyAcceptedAlgorithms=+ssh-rsa \
@@ -55,33 +53,34 @@ ssh -o HostKeyAlgorithms=+ssh-rsa \
 
 # user: root
 # pass: ys123456
-
 ```
 
-Creamos el archivo de Configuración Personalizado
+Creamos el archivo de Configuración Personalizado.
 
 Para garantizar que la configuración persista incluso después de reinicios, los cambios se realizan en archivos personalizados dentro del directorio `/persistent/custom-cfg/`.
 
-Cremos el archivo: `users_custom.conf` con el siguiente contenido.
-(El TG800 ya viene con el editor `vi` instalado)
+Creamos el archivo: `users_custom.conf` con el siguiente contenido.  
+(El TG800 ya viene con el editor `vi` instalado).
+
 ```sh
 vi /persistent/custom-cfg/users_custom.conf
 ```
-Precionamos la tecla `i` para poder escribir.
 
-Escribimos el siguiente contenido remplazando {USUARIO_DE_VAPI} por el `usuario `proporcionado por la SIP de `vapi` ( Se recomienda colocar un nombre de usuario largo por seguridad por que es el unico medio de authenticacion para llamar a nuestro VAPI)
+Presionamos la tecla `i` para poder escribir.
+
+Escribimos el siguiente contenido reemplazando `{USUARIO_DE_VAPI}` por el `usuario` proporcionado por la SIP de `vapi`.  
+(Se recomienda colocar un nombre de usuario largo por seguridad, ya que es el único medio de autenticación para llamar a nuestro VAPI).
 
 ```conf
 [trunk-sps-vapi]
-defaultuser= {USUARIO_DE_VAPI}
+defaultuser={USUARIO_DE_VAPI}
 ```
-Precionamos la tecla `Esc` seguido de `:wq`, y precionamos `Enter` para guardar.
 
-Reiniciamos el dispositivo y estaria todo listo.
+Presionamos la tecla `Esc` seguido de `:wq`, y luego presionamos `Enter` para guardar.
 
+- Reiniciamos el dispositivo y ya estaríamos con la SIP Trunk conectada.
+- Creamos la ruta desde el SIM hasta las SIP.
+- Probamos una llamada.
 
-by. `Servisofts SRL`, **Ricardo Paz Demiquel**
-
-
-
-
+By: **Servisofts SRL**,  
+**Ricardo Paz Demiquel**.
