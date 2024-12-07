@@ -82,5 +82,55 @@ Presionamos la tecla `Esc` seguido de `:wq`, y luego presionamos `Enter` para gu
 - Creamos la ruta desde el SIM hasta las SIP.
 - Probamos una llamada.
 
+# Esto es lo nuevo para llamadas entrantes y salientes
+
+```
+ssh -o HostKeyAlgorithms=+ssh-rsa \
+    -o KexAlgorithms=+diffie-hellman-group1-sha1 \
+    -o PubkeyAcceptedAlgorithms=+ssh-rsa \
+   root@192.168.5.150 -p 8022
+```
+
+
+```bash
+asterisk -rx 'sip show peers'
+asterisk -rx 'sip reload'
+asterisk -rx 'dialplan reload'
+```
+
+
+vi /persistent/custom-cfg/users_custom.conf
+```conf
+
+[trunk-sps-vapi]
+defaultuser = servisoftssantamaria
+
+```
+
+vi /persistent/custom-cfg/extensions_custom.conf
+```conf
+
+[macro-Routein_GSM_IP_salida]
+exten = s,1,Set(CDR(userfield)=MOBILE->IP)
+exten = s,n,GotoIf(${DB_EXISTS(blacklist/${CALLERID(num)})}?Blacklist-Handle,s,1)
+exten = s,n,Goto(Routeout_GSM_IP_salida,servisoftssantamaria,1)
+exten = s,102,Goto(Blacklist-Handle,s,1)
+
+[Routeout_IP_GSM_entradavapi]                                                                       
+exten = _.,1,Set(ORGINEXTEN=${EXTEN}) ; Guarda la extensi..n original                               
+exten = _.,n,GotoIf($["${EXTEN}"="h"]?end) ; Evita llamar con EXTEN=h                               
+exten = _.,n,Set(EXTEN=${FILTER(0-9,${EXTEN})}) ; Limpia caracteres no num..ricos                   
+exten = _.,n,GotoIf($["${EXTEN:0:3}"="591"]?remove_prefix:no_prefix) ; Verifica si el n..mero comienza con 591
+exten = _.,n(remove_prefix),Set(DIAL_NUMBER=${EXTEN:3}) ; Remueve los primeros 3 d..gitos (591)
+exten = _.,n,Goto(dial_out) ; Salta a la marcaci..n                                      
+exten = _.,n(no_prefix),Set(DIAL_NUMBER=${EXTEN}) ; Usa el n..mero sin cambios si no tiene 591
+exten = _.,n(dial_out),Dial(YSGSM/1/${DIAL_NUMBER},30) ; Realiza la llamada con el n..mero procesado
+exten = _.,n(end),Hangup()
+
+```
+
+
+
+
 By: **Servisofts SRL**,  
 **Ricardo Paz Demiquel**.
