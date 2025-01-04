@@ -26,6 +26,9 @@ Este proyecto busca integrar el gateway Yeastar TG800 con la plataforma **VAPI.A
    - Acceso al TG800 vía SSH.
    - Herramienta de conexión SSH (como `ssh` o `scp`).
    - Editor de texto (como `vim` o `nano`).
+   - Acceso via web
+   - usr: admin
+   - pass: password
 
 ---
 
