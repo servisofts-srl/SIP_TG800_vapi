@@ -130,6 +130,11 @@ exten = _.,n(no_prefix),Set(DIAL_NUMBER=${EXTEN}) ; Usa el n..mero sin cambios s
 exten = _.,n(dial_out),Dial(YSGSM/1/${DIAL_NUMBER},30) ; Realiza la llamada con el n..mero procesado
 exten = _.,n(end),Hangup()
 
+; Manejo del colgado del receptor
+exten = h,1,NoOp(***** Call Hangup Detected *****)
+exten = h,n,Hangup()
+
+
 ```
 
 
