@@ -99,6 +99,11 @@ ssh -o HostKeyAlgorithms=+ssh-rsa \
 asterisk -rx 'sip show peers'
 asterisk -rx 'sip reload'
 asterisk -rx 'dialplan reload'
+
+core set verbose 5
+core set debug 5
+sip set debug on
+module logger reload
 ```
 
 
