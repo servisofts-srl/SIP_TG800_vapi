@@ -52,6 +52,8 @@ Recuerda que la entrada de vapi debe mantener el nombre entradavapi
 ![alt text](img/entradavapi.png)
 
 
+!!!! tampoco olvodes poner el pass uplabsai
+
 
 Ahora nos conectamos por SSH al TG800.
 
@@ -59,7 +61,7 @@ Ahora nos conectamos por SSH al TG800.
 ssh -o HostKeyAlgorithms=+ssh-rsa \
     -o KexAlgorithms=+diffie-hellman-group1-sha1 \
     -o PubkeyAcceptedAlgorithms=+ssh-rsa \
-   root@192.168.5.150 
+   root@192.168.5.150 -p 8022
 
 # user: root
 # pass: ys123456
@@ -118,7 +120,7 @@ vi /persistent/custom-cfg/users_custom.conf
 ```conf
 
 [trunk-sps-vapi]
-defaultuser = servisoftssantamaria
+defaultuser = uplabsai
 
 ```
 
@@ -128,7 +130,7 @@ vi /persistent/custom-cfg/extensions_custom.conf
 [macro-Routein_GSM_IP_salida]
 exten = s,1,Set(CDR(userfield)=MOBILE->IP)
 exten = s,n,GotoIf(${DB_EXISTS(blacklist/${CALLERID(num)})}?Blacklist-Handle,s,1)
-exten = s,n,Goto(Routeout_GSM_IP_salida,servisoftssantamaria,1)
+exten = s,n,Goto(Routeout_GSM_IP_salida,uplabsai,1)
 exten = s,102,Goto(Blacklist-Handle,s,1)
 
 [Routeout_IP_GSM_entradavapi]                                                                       
