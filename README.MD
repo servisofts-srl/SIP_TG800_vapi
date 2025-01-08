@@ -113,6 +113,10 @@ core set verbose 5
 core set debug 5
 sip set debug on
 module logger reload
+
+
+# puedes ver el trafico de las llamadas con 
+ tcpdump -i eth0 port 5060 -n -v
 ```
 
 
