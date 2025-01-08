@@ -46,6 +46,13 @@ Agregamos el trunk con las siguientes configuraciones:
 (El *Provider Name* es importante para la configuración).  
 ![alt text](img/add_trunk.png)
 
+
+Recuerda que la entrada de vapi debe mantener el nombre entradavapi
+
+
+
+
+
 Ahora nos conectamos por SSH al TG800.
 
 ```bash
