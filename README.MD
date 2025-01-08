@@ -49,7 +49,7 @@ Agregamos el trunk con las siguientes configuraciones:
 
 Recuerda que la entrada de vapi debe mantener el nombre entradavapi
 
-
+![alt text](img/entradavapi.png)
 
 
 
