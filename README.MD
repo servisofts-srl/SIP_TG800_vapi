@@ -47,12 +47,12 @@ Agregamos el trunk con las siguientes configuraciones:
 ![alt text](img/add_trunk.png)
 
 
-Recuerda que la entrada de vapi debe mantener el nombre entradavapi
+Recuerda que la entrada de vapi debe mantener el nombre `entradavapi`
 
 ![alt text](img/entradavapi.png)
 
 
-!!!! tampoco olvodes poner el Hotline uplabsai en Mobile to ip
+!!!! tampoco olvodes poner el `Hotline uplabsai en Mobile to ip`
 
 
 Ahora nos conectamos por SSH al TG800.
